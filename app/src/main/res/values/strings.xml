@@ -1,0 +1,98 @@
+<resources>
+    <string name="app_name" translatable="false">Safety Tracker: GPS via SMS</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="sms_pattern" translatable="false">%s\n
+%s\n
+acc=%s\n
+    </string>
+
+    <string name="welcome_title">Your lifeline</string>
+    <string name="welcome_message">Your trusted persons may request your coordinates if you\'re unable to go online</string>
+    <string name="welcome_button">Setup</string>
+
+    <string name="permissions_title">Allow access</string>
+    <string name="permissions_message">This application requires access to your contact list and location, and  permission
+        to send SMS.
+    </string>
+    <string name="permissions_title_error">The application is inoperable</string>
+    <string name="permissions_permit">Allow</string>
+
+    <string name="trusted_phone_title">Trusted contacts</string>
+    <string name="trusted_phone_onboarding_title">Enter your trusted telephone number</string>
+    <string name="trusted_phone_message">Your coordinates will be sent to this number via SMS text message</string>
+    <string name="trusted_phone_further">Continue</string>
+    <string name="trusted_phone_hint">Enter phone number</string>
+
+    <string name="contact_search_hint">Search contacts</string>
+
+    <string name="code_word_title">Enter your code word</string>
+    <string name="code_word_message">A trusted contact may use it to receive your coordinates
+        at any moment
+    </string>
+    <string name="code_word_hint">Code word</string>
+    <string name="code_word_not_necessary">Optional</string>
+    <string name="code_word_send">Send to your trusted contact</string>
+    <string name="code_word_remove">Delete code word</string>
+    <string name="code_word_further">Continue</string>
+    <string name="code_word_dialog_title">@string/code_word_hint</string>
+
+    <string name="onboarding_settings_title">Settings</string>
+    <string name="onboarding_interval_title">Delay before SMS text message</string>
+    <string name="onboarding_max_sms_count_title">SMS limit</string>
+    <string name="onboarding_coords_format_title">Coordinates format</string>
+
+    <string name="sms_count_format">%s messages</string>
+    <string name="sms_count_infinite">Unlimited</string>
+    <string name="interval_format">%s minutes</string>
+    <string name="format_custom">Enter manually</string>
+    <string name="format_degrees_example" translatable="false">Ndd.ddddd° Eddd.ddddd°</string>
+    <string name="format_seconds_example" translatable="false">Ndd°mm′ss.sssss″ Eddd°mm′ss.sssss″</string>
+    <string name="format_minutes_example" translatable="false">Ndd°mm.mmmmm′ Eddd°mm.mmmmm′</string>
+    <string name="format_google_maps_example" translatable="false">Google Maps</string>
+    <string name="format_navitel_example" translatable="false">Navitel</string>
+
+    <string name="location_status_accuracy">Accuracy %s m</string>
+    <string name="location_status_not_found">Unable to find your location</string>
+    <string name="location_status_location_disabled">Enable location services</string>
+
+    <string name="timer_main_disabled_title">Retrieving and sending\ncoordinates over SMS are disabled</string>
+    <string name="timer_send_my_coords">Send my coordinates</string>
+    <string name="timer_my_coords_are_sending">Sending message…</string>
+    <string name="timer_sms_sent_min_ago">SMS was sent %s minutes ago</string>
+    <string name="timer_sms_sending_failed">Failed to send SMS %s minutes ago</string>
+    <string name="timer_sms_sending_off">SMS automatic sending is disabled</string>
+    <string name="timer_no_contact">Please, add at least one trusted contact</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_phone_title">Trusted contact</string>
+    <string name="settings_code_word_title">Code word</string>
+    <string name="settings_code_word_why">Why do I need a code word?</string>
+    <string name="settings_code_word_why_answer">Your trusted contact may receive your coordinates by sending you an SMS with the code word. Important! The application needs permission to use GPS and location services!</string>
+    <string name="settings_problem">Report a problem</string>
+    <string name="settings_add_trusted_phone">Add number</string>
+    <string name="settings_interval_dialog_input_mode">Minutes</string>
+    <string name="settings_send_location">Send coordinates</string>
+    <string name="settings_send_location_to_anyone">To trusted contacts only</string>
+    <string name="settings_send_location_by_codeword">Anyone by the code word</string>
+    <string name="settings_active_sim">Active SIM</string>
+    <string name="settings_share">Share this App</string>
+    <string name="settings_version">Version %s</string>
+
+    <string name="feedback_email_theme" translatable="false">Feedback report</string>
+    <string name="feedback_email_title">Send feedback</string>
+
+    <string name="foreground_notification_chanel_name">Emergency SMS tracker</string>
+    <string name="foreground_notification_title">Application is active</string>
+    <string name="foreground_notification_periodic_sms_subtitle">With periodic SMS sending</string>
+
+    <string name="code_word_changed_send">Would you like to send the code word to your trusted contacts?</string>
+    <string name="trusted_phone_added_send_code_title">Would you like to send the code word to this trusted number?</string>
+    <string name="send_now">Send</string>
+    <string name="not_now">Later</string>
+
+    <string name="sim" translatable="false">SIM %s</string>
+    <string name="on">ON</string>
+    <string name="off">OFF</string>
+    <string name="sms_error_message">Failed to send SMS</string>
+</resources>

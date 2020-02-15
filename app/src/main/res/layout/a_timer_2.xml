@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/timer_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/content_disabled"
+            layout="@layout/content_disabled" />
+
+        <include
+            android:id="@+id/content_enabled"
+            layout="@layout/content_enabled" />
+
+    </FrameLayout>
+
+    <com.kyleduo.switchbutton.SwitchButton
+        android:id="@+id/switchbutton_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/grey_900"
+        android:textSize="16sp"
+        app:kswBackColor="@color/switch_button_back_color"
+        app:kswTextOff="@string/off"
+        app:kswTextOn="@string/on"
+        app:kswThumbColor="@color/grey_900"
+        app:kswThumbHeight="48dp"
+        app:kswThumbWidth="48dp" />
+
+</FrameLayout>

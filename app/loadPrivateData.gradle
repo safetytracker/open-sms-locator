@@ -1,0 +1,19 @@
+/**
+ * This file is used to load some sensitive data like signing keys and auth tokens from protected RST storage
+ */
+def PRIVATE_PROPS_FILE_NAME = "private.properties"
+
+ext.privateProps = new Properties()
+def privateDataDir = new File("app/privatedata").absoluteFile
+
+if (System.env.RST_BRANCH != null && System.env.RST_REMOTE_URL != null) {
+    "git clone -b ${System.env.RST_BRANCH} ${System.env.RST_REMOTE_URL} ${privateDataDir.absolutePath}"
+            .execute().waitFor()
+}
+
+def privatePropsFile = new File(privateDataDir, PRIVATE_PROPS_FILE_NAME)
+println("private properties file: $privatePropsFile")
+
+privatePropsFile.withInputStream { is -> ext.privateProps.load(is) }
+ext.keyStoreFile = new File(privateDataDir, ext.privateProps["rst.storeFile"])
+println("keystore file: ${ext.keyStoreFile}")

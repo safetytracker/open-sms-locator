@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/img_splash"
+        android:layout_width="276dp"
+        android:layout_height="276dp"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@null"
+        android:src="@drawable/splash_permissions"/>
+
+    <TextView
+        style="@style/TextPrimary"
+        android:id="@+id/text_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/permissions_title"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        style="@style/TextSecondary"
+        android:id="@+id/text_secondary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/permissions_message"/>
+
+</LinearLayout>

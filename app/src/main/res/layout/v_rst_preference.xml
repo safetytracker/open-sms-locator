@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/textRSTPreferenceTitle"
+        style="@style/TextPrimary.Clickable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:duplicateParentState="true"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textRSTPreferenceValue"
+        style="@style/TextSecondary.Clickable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:duplicateParentState="true"
+        android:textSize="14sp" />
+</merge>

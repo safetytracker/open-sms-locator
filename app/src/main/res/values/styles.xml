@@ -1,0 +1,93 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/grey_900</item>
+        <item name="colorPrimaryDark">@color/grey_900</item>
+        <item name="colorAccent">@color/amber_600</item>
+        <item name="android:background">@color/grey_900</item>
+
+        <item name="colorControlNormal">@color/white_50_alpha</item>
+        <item name="colorControlActivated">@color/white_50_alpha</item>
+        <item name="colorControlHighlight">@color/white_50_alpha</item>
+
+        <item name="android:alertDialogTheme">@style/RSTDialogTheme</item>
+    </style>
+
+    <style name="RSTDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/amber_600</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:background">@color/grey_900</item>
+    </style>
+
+    <style name="OnBoardingYellowButton">
+        <item name="android:background">@drawable/bg_yellow_button</item>
+        <item name="android:textColor">@color/yellow_button_text_color</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextPrimary" parent="TextSecondary">
+        <item name="android:textStyle">bold</item>
+        <item name="android:alpha">1</item>
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="TextPrimary.Clickable" parent="TextPrimary">
+        <item name="android:textColor">@color/text_clickable_color_white</item>
+    </style>
+
+    <style name="TextSecondary">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:alpha">0.5</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextSecondary.Clickable">
+        <item name="android:textColor">@color/text_clickable_color_white</item>
+    </style>
+
+    <style name="TextButton">
+        <item name="android:textColor">@color/text_button_text_color_amber500</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="TextSideHint">
+        <item name="android:textColor">@color/white_50_alpha</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+    </style>
+
+    <style name="InputPrimary" parent="TextSecondary">
+        <item name="android:textColorHint">@color/white_50_alpha</item>
+        <item name="android:alpha">1</item>
+    </style>
+
+    <style name="InputSearch">
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:hint">@string/contact_search_hint</item>
+        <item name="android:textColorHint">@color/black_40_alpha</item>
+        <item name="android:inputType">text</item>
+    </style>
+
+    <style name="TextInputLayout">
+        <item name="errorEnabled">false</item>
+        <item name="android:textColorHint">@color/white_50_alpha</item>
+    </style>
+
+    <style name="TextInputEditText">
+        <item name="android:textColor">@color/white</item>
+    </style>
+</resources>

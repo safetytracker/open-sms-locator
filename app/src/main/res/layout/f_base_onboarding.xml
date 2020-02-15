@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingEnd="@dimen/onboarding_content_sides_padding"
+    android:paddingStart="@dimen/onboarding_content_sides_padding">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/onboarding_scrollable_container_bottom_padding"
+        android:paddingTop="@dimen/onboarding_content_top_padding"
+        android:scrollbars="none">
+
+        <FrameLayout
+            android:id="@+id/onboarding_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/go_further_button"
+        style="@style/OnBoardingYellowButton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/yellow_button_height"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/onboarding_button_bottom_margin"
+        android:text="@string/code_word_further" />
+</FrameLayout>

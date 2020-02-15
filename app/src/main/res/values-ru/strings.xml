@@ -1,0 +1,86 @@
+<resources>
+    <string name="ok">Ок</string>
+    <string name="cancel">Отмена</string>
+
+    <string name="welcome_title">Возможность cпасти тебя</string>
+    <string name="welcome_message">Твои близкие узнают твои координаты, если ты не сможешь выходить на связь</string>
+    <string name="welcome_button">Настроить</string>
+
+    <string name="permissions_title">Разрешите доступ</string>
+    <string name="permissions_message">Для работы приложения требуется доступ к контактам, отправке смс и определению
+        местоположения.
+    </string>
+    <string name="permissions_title_error">Приложение не может работать</string>
+    <string name="permissions_permit">Разрешить</string>
+
+    <string name="trusted_phone_title">Доверенные номера телефонов</string>
+    <string name="trusted_phone_onboarding_title">Введите доверенный номер телефона</string>
+    <string name="trusted_phone_message">На этот номер будут отправляться смс с вашими координатами</string>
+    <string name="trusted_phone_further">Далее</string>
+    <string name="trusted_phone_hint">Введите номер телефона</string>
+
+    <string name="contact_search_hint">Искать контакт</string>
+
+    <string name="code_word_title">Введите кодовое слово</string>
+    <string name="code_word_message">С помощью кодового слова доверенное лицо может получить ваши координаты в любой
+        момент
+    </string>
+    <string name="code_word_hint">Кодовое слово</string>
+    <string name="code_word_not_necessary">Не обязательно</string>
+    <string name="code_word_send">Отправить на доверенный номер</string>
+    <string name="code_word_remove">Удалить кодовое слово</string>
+    <string name="code_word_further">Далее</string>
+    <string name="code_word_dialog_title">@string/code_word_hint</string>
+
+    <string name="onboarding_settings_title">Настройки</string>
+    <string name="onboarding_interval_title">Интервал между отправкой SMS</string>
+    <string name="onboarding_max_sms_count_title">Макс. количество SMS</string>
+    <string name="onboarding_coords_format_title">Формат координат</string>
+
+    <string name="sms_count_format">%s шт</string>
+    <string name="sms_count_infinite">Не ограничено</string>
+    <string name="interval_format">%s минут</string>
+    <string name="format_custom">Задать свой</string>
+
+    <string name="location_status_accuracy">Точность %s м</string>
+    <string name="location_status_not_found">Координаты не определены</string>
+    <string name="location_status_location_disabled">Включить определение местоположения</string>
+
+    <string name="timer_main_disabled_title">Определение и отправка \nкоординат по SMS отключены</string>
+    <string name="timer_send_my_coords">Отправить мои координаты</string>
+    <string name="timer_my_coords_are_sending">Отправка SMS…</string>
+    <string name="timer_sms_sent_min_ago">SMS отправлена %s мин. назад</string>
+    <string name="timer_sms_sending_failed">Не удалось отправить SMS %s мин. назад</string>
+    <string name="timer_sms_sending_off">Автоматическая отправка SMS отключена</string>
+    <string name="timer_no_contact">Добавьте по крайней мере один доверительный номер телефона</string>
+
+    <string name="settings_title">Настройки</string>
+    <string name="settings_phone_title">Доверительный номер телефона</string>
+    <string name="settings_code_word_title">Кодовое слово</string>
+    <string name="settings_code_word_why">Зачем нужно кодовое слово?</string>
+    <string name="settings_code_word_why_answer">Отправив кодовое слово по SMS на ваш телефон, абонент из списка "Доверенных номеров" получит в ответ ваши координаты. Внимание! GPS должен быть включен.</string>
+    <string name="settings_problem">Сообщить о проблеме</string>
+    <string name="settings_add_trusted_phone">Добавить номер</string>
+    <string name="settings_interval_dialog_input_mode">Минут</string>
+    <string name="settings_send_location">Отправлять координаты</string>
+    <string name="settings_send_location_to_anyone">Только доверенному списку</string>
+    <string name="settings_send_location_by_codeword">Всем кто знает кодовое слово</string>
+    <string name="settings_active_sim">Используемая SIM карта</string>
+    <string name="settings_share">Поделиться приложением</string>
+    <string name="settings_version">Версия %s</string>
+
+    <string name="feedback_email_title">Отправить отзыв</string>
+
+    <string name="foreground_notification_chanel_name">Emergency SMS tracker</string>
+    <string name="foreground_notification_title">Приложение активно</string>
+    <string name="foreground_notification_periodic_sms_subtitle">С периодической отправкой SMS</string>
+
+    <string name="code_word_changed_send">Отправить кодовое слово на доверенные номера?</string>
+    <string name="trusted_phone_added_send_code_title">Отправить кодовое слово на этот доверенный номер?</string>
+    <string name="send_now">Отправить</string>
+    <string name="not_now">Не сейчас</string>
+
+    <string name="on">ВКЛ</string>
+    <string name="off">ВЫКЛ</string>
+    <string name="sms_error_message">Не удалось отправить SMS</string>
+</resources>
