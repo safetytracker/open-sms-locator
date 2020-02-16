@@ -22,7 +22,7 @@ file("../version.properties").withInputStream {
 def releaseVersion = "${versionProps['rst.major_version']}" +
         ".${versionProps['rst.minor_version']}" +
         ".${versionProps['rst.version_code']}"
-archivesBaseName = "emergencySMStracker-$releaseVersion"
+archivesBaseName = "open-sms-locator-$releaseVersion"
 
 kapt {
     generateStubs = true
