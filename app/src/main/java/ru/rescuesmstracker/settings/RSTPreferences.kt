@@ -131,7 +131,7 @@ object RSTPreferences {
 
                 val resultLocationString = "$lat,$lon"
 
-                return "google.com/maps?q=$resultLocationString"
+                return "maps.google.com/?q=$resultLocationString"
             }
 
             /**
