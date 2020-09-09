@@ -142,10 +142,11 @@ object LocationProvider {
     private fun locationManager(context: Context): LocationManager = context
             .getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-    private abstract class AccumulativeTimeoutLocationListenerWrapper(private val timeout: Long,
-                                                                      private val locationListener: LocationCallback,
-                                                                      private val resultCount: Int)
-        : LocationListenerAdapter() {
+    private abstract class AccumulativeTimeoutLocationListenerWrapper(
+            private val timeout: Long,
+            private val locationListener: LocationCallback,
+            private val resultCount: Int
+    ) : LocationListenerAdapter() {
         private val handler = Handler()
         private val expirationCallback = {
             if (shouldExpire) {
