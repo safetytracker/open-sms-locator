@@ -19,11 +19,8 @@
 
 package ru.rescuesmstracker.widget
 
-import android.annotation.TargetApi
 import android.content.Context
-import android.os.Build
 import android.provider.MediaStore
-import android.support.v4.content.ContextCompat
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
 import android.text.SpannableStringBuilder
 import android.text.Spanned
@@ -35,6 +32,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.v_contact.view.*
 import ru.rescuesmstracker.data.Contact
+import ru.rescuesmstracker.extensions.color
 import ru.rst.rescuesmstracker.R
 import java.io.FileNotFoundException
 
@@ -42,9 +40,8 @@ class ContactView : LinearLayout {
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
 
-    var onRemoveListener: View.OnClickListener? = null
+    var onRemoveListener: OnClickListener? = null
     var isRemovingEnabled = false
         set(value) {
             field = value
@@ -85,7 +82,7 @@ class ContactView : LinearLayout {
             val index = if (query.isEmpty()) -1 else title.indexOf(query, ignoreCase = true)
             if (index >= 0) {
                 val spannedContactName = SpannableStringBuilder(title)
-                spannedContactName.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.amber_600)),
+                spannedContactName.setSpan(ForegroundColorSpan(context.color(R.color.amber_600)),
                         index, index + query.length,
                         Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
                 textContactName.text = spannedContactName

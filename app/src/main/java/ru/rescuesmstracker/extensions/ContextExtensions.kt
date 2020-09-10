@@ -20,8 +20,15 @@
 package ru.rescuesmstracker.extensions
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
 import android.support.v4.content.ContextCompat
 
 fun Context.drawable(@DrawableRes id: Int): Drawable = ContextCompat.getDrawable(this, id)!!
+
+fun Context.color(@ColorRes id: Int): Int = ContextCompat.getColor(this, id)
+
+fun Context.isPermissionGranted(permission: String) =
+        ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED

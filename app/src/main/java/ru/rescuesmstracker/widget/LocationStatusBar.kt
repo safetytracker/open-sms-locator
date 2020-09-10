@@ -26,12 +26,12 @@ import android.support.annotation.ColorInt
 import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.AppCompatTextView
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
+import ru.rescuesmstracker.extensions.color
 import ru.rescuesmstracker.extensions.drawable
 import ru.rst.rescuesmstracker.R
 
@@ -51,7 +51,7 @@ class LocationStatusBar : AppCompatTextView {
     var status: Status? = null
         set(value) {
             if (field != value && value != null) {
-                val tintColor = ContextCompat.getColor(context, value.tintColorRes)
+                val tintColor = context.color(value.tintColorRes)
                 setIcon(value.iconRes, tintColor)
                 setTextColor(tintColor)
                 setBackgroundResource(value.backgroundDrawable)

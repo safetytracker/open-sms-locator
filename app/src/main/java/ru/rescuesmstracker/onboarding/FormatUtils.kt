@@ -22,7 +22,6 @@ package ru.rescuesmstracker.onboarding
 import android.content.Context
 import android.location.Location
 import android.os.Build
-import android.support.v4.content.ContextCompat
 import android.telephony.PhoneNumberUtils
 import android.telephony.TelephonyManager
 import android.text.Spannable
@@ -30,6 +29,7 @@ import android.text.SpannableStringBuilder
 import android.text.format.DateUtils
 import android.text.style.ForegroundColorSpan
 import ru.rescuesmstracker.RSTSmsManager
+import ru.rescuesmstracker.extensions.color
 import ru.rescuesmstracker.settings.RSTPreferences
 import ru.rst.rescuesmstracker.R
 import java.text.SimpleDateFormat
@@ -79,7 +79,7 @@ class FormatUtils(val context: Context) {
         }
     }
 
-    fun formatActiveSim(id: Int): String {
+    private fun formatActiveSim(id: Int): String {
         return context.getString(R.string.sim, id.toString())
     }
 
@@ -92,7 +92,7 @@ class FormatUtils(val context: Context) {
         val builder = SpannableStringBuilder()
         builder.append(idString).append('\n').append(formatCarrierName(simInfo.carrierName))
 
-        builder.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.white_50_alpha)),
+        builder.setSpan(ForegroundColorSpan(context.color(R.color.white_50_alpha)),
                 idString.length, builder.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         return builder
     }

@@ -25,7 +25,6 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.support.annotation.ColorRes
-import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
@@ -33,6 +32,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
+import ru.rescuesmstracker.extensions.color
 import ru.rescuesmstracker.onboarding.FormatUtils
 import ru.rst.rescuesmstracker.R
 
@@ -41,27 +41,27 @@ class RSTTimerView(context: Context, attrs: AttributeSet) : FrameLayout(context,
     enum class State(@ColorRes val progressTextColorRes: Int,
                      @ColorRes val progressBackgroundColorRes: Int) {
         WAITING(R.color.white, R.color.transparent) {
-            override fun getFormatedString(context: Context, timeAgo: String): String
+            override fun getFormattedString(context: Context, timeAgo: String): String
                     = if (timeAgo.isBlank()) "" else context.getString(R.string.timer_sms_sent_min_ago, timeAgo)
         },
         SENDING_OFF(R.color.white, R.color.transparent) {
-            override fun getFormatedString(context: Context, timeAgo: String): String
+            override fun getFormattedString(context: Context, timeAgo: String): String
                     = context.getString(R.string.timer_sms_sending_off)
         },
         SENDING_SMS(R.color.white, R.color.transparent) {
-            override fun getFormatedString(context: Context, timeAgo: String): String
-                    = State.WAITING.getFormatedString(context, timeAgo)
+            override fun getFormattedString(context: Context, timeAgo: String): String
+                    = WAITING.getFormattedString(context, timeAgo)
         },
         FAILED_TO_SEND(R.color.white, R.color.red_500) {
-            override fun getFormatedString(context: Context, timeAgo: String): String
+            override fun getFormattedString(context: Context, timeAgo: String): String
                     = context.getString(R.string.timer_sms_sending_failed, timeAgo)
         },
         NO_CONTACT(R.color.red_500, R.color.transparent) {
-            override fun getFormatedString(context: Context, timeAgo: String): String =
+            override fun getFormattedString(context: Context, timeAgo: String): String =
                     context.getString(R.string.timer_no_contact)
         };
 
-        abstract fun getFormatedString(context: Context, timeAgo: String): String
+        abstract fun getFormattedString(context: Context, timeAgo: String): String
     }
 
     val max = 100
@@ -94,8 +94,8 @@ class RSTTimerView(context: Context, attrs: AttributeSet) : FrameLayout(context,
         }
 
     init {
-        circularProgress.backgroundColor = ContextCompat.getColor(context, R.color.white_30_alpha)
-        circularProgress.color = ContextCompat.getColor(context, R.color.white)
+        circularProgress.backgroundColor = context.color(R.color.white_30_alpha)
+        circularProgress.color = context.color(R.color.white)
         circularProgress.backgroundProgressBarWidth = circularProgress.progressBarWidth
         addView(circularProgress, LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
@@ -113,10 +113,10 @@ class RSTTimerView(context: Context, attrs: AttributeSet) : FrameLayout(context,
     }
 
     fun setState(newState: State, lastSmsSentTimestamp: Long) {
-        circleBackgroundPaint.color = ContextCompat.getColor(context, newState.progressBackgroundColorRes)
+        circleBackgroundPaint.color = context.color(newState.progressBackgroundColorRes)
 
-        progressText.setTextColor(ContextCompat.getColor(context, newState.progressTextColorRes))
-        progressText.text = newState.getFormatedString(context,
+        progressText.setTextColor(context.color(newState.progressTextColorRes))
+        progressText.text = newState.getFormattedString(context,
                 formatUtils.formatTimerMinutes(lastSmsSentTimestamp))
         currentState = newState
     }

@@ -27,11 +27,13 @@ import android.os.Bundle
 import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes
-import android.support.v4.content.ContextCompat
 import android.view.View
 import kotlinx.android.synthetic.main.f_base_onboarding.*
 import kotlinx.android.synthetic.main.f_permissions.*
 import ru.rescuesmstracker.Constants
+import ru.rescuesmstracker.extensions.color
+import ru.rescuesmstracker.extensions.drawable
+import ru.rescuesmstracker.extensions.isPermissionGranted
 import ru.rst.rescuesmstracker.R
 
 @TargetApi(Build.VERSION_CODES.M)
@@ -62,18 +64,18 @@ class PermissionsFragment : BaseOnBoardingFragment() {
             return PERMISSIONS.any { !isPermissionGranted(context, it) }
         }
 
-        private fun isPermissionGranted(context: Context, permission:String):Boolean =
-                ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED
+        private fun isPermissionGranted(context: Context, permission: String): Boolean =
+                context.isPermissionGranted(permission)
     }
 
     var permissionsListener: PermissionsListener? = null
 
     private var state: State = State.IDLE
         set(value) {
-            text_title.setTextColor(ContextCompat.getColor(requireActivity(), value.titleTextColorRes))
+            text_title.setTextColor(requireActivity().color(value.titleTextColorRes))
             text_title.setText(value.titleRes)
             go_further_button.isActivated = value.isButtonActivated
-            img_splash.setImageDrawable(ContextCompat.getDrawable(requireActivity(), value.splashDrawableRes))
+            img_splash.setImageDrawable(requireActivity().drawable(value.splashDrawableRes))
             field = value
         }
 

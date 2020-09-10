@@ -23,7 +23,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.ColorInt
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -33,6 +32,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.a_search_contact.*
 import ru.rescuesmstracker.data.Contact
+import ru.rescuesmstracker.extensions.color
 import ru.rescuesmstracker.extensions.drawable
 import ru.rescuesmstracker.onboarding.model.OnBoardingContactsProvider
 import ru.rescuesmstracker.widget.BaseRSTActivity
@@ -126,7 +126,7 @@ class ActivitySearchContact : BaseRSTActivity(), OnBoardingContactsProvider.Cont
         open class ContactViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
             @ColorInt
-            val color: Int = ContextCompat.getColor(itemView.context, R.color.amber_600)
+            val color: Int = itemView.context.color(R.color.amber_600)
 
             fun bind(contact: Contact, query: String) {
                 (itemView as ContactView).setContact(contact, query)

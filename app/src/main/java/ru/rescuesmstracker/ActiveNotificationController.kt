@@ -28,7 +28,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.support.v4.app.NotificationCompat
-import android.support.v4.content.ContextCompat
+import ru.rescuesmstracker.extensions.color
 import ru.rescuesmstracker.timer.ActivityTimer2
 import ru.rescuesmstracker.timer.model.ScheduledSmsModel
 import ru.rst.rescuesmstracker.R
@@ -55,7 +55,7 @@ object ActiveNotificationController {
         return NotificationCompat.Builder(context, chanelId)
                 .setContentTitle(context.getString(R.string.foreground_notification_title))
                 .setSmallIcon(R.drawable.ic_active_notification)
-                .setColor(ContextCompat.getColor(context, R.color.amber_600))
+                .setColor(context.color(R.color.amber_600))
                 .setContentIntent(appPendingIntent)
                 .apply {
                     if (ScheduledSmsModel.isSmsSendingEnabled(context)) {
