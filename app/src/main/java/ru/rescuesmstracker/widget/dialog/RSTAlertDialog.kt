@@ -85,11 +85,11 @@ class RSTAlertDialog : DialogFragment() {
         }
     private var isViewInflated = false
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.v_rst_dialog, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.v_rst_dialog, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         text_rst_dialog_ok.visibility = if (okText != null) View.VISIBLE else View.GONE
@@ -115,7 +115,7 @@ class RSTAlertDialog : DialogFragment() {
             text_rst_dialog_cancel.text = cancelText
         }
 
-        text_rst_dialog_title.text = arguments.getCharSequence("title", "")
+        text_rst_dialog_title.text = arguments?.getCharSequence("title", "")
 
         this.dialogMode?.inflateView(container_rst_dialog)
         container_rst_dialog.visibility = if (dialogMode == null) View.GONE else View.VISIBLE
@@ -129,7 +129,7 @@ class RSTAlertDialog : DialogFragment() {
     }
 
     fun setTitle(title: CharSequence): RSTAlertDialog {
-        arguments.putCharSequence("title", title)
+        arguments?.putCharSequence("title", title)
         if (isViewInflated) {
             text_rst_dialog_title.text = title
         }

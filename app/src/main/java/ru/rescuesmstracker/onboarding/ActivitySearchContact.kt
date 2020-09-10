@@ -33,6 +33,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.a_search_contact.*
 import ru.rescuesmstracker.data.Contact
+import ru.rescuesmstracker.extensions.drawable
 import ru.rescuesmstracker.onboarding.model.OnBoardingContactsProvider
 import ru.rescuesmstracker.widget.BaseRSTActivity
 import ru.rescuesmstracker.widget.ContactView
@@ -81,7 +82,7 @@ class ActivitySearchContact : BaseRSTActivity(), OnBoardingContactsProvider.Cont
         listContacts.adapter = adapter
         val dividerItemDecoration = DividerItemDecoration(listContacts.context,
                 (listContacts.layoutManager as LinearLayoutManager).orientation)
-        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider_list_contacts))
+        dividerItemDecoration.setDrawable(drawable(R.drawable.divider_list_contacts))
         listContacts.addItemDecoration(dividerItemDecoration)
         contactsProvider.queryContacts(this, "", this)
     }
@@ -108,9 +109,9 @@ class ActivitySearchContact : BaseRSTActivity(), OnBoardingContactsProvider.Cont
         val contacts: MutableList<Contact> = ArrayList()
         var currentQuery: String = ""
 
-        override fun onBindViewHolder(holder: ContactViewHolder?, position: Int) {
-            holder?.bind(contacts[position], currentQuery)
-            holder?.itemView?.setOnClickListener { onContactSelected.invoke(contacts[position]) }
+        override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
+            holder.bind(contacts[position], currentQuery)
+            holder.itemView.setOnClickListener { onContactSelected.invoke(contacts[position]) }
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {

@@ -31,7 +31,7 @@ import ru.rst.rescuesmstracker.R
 
 class CodeWordFragment : BaseOnBoardingFragment() {
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val listener = object : TextWatcher {
             override fun afterTextChanged(s: Editable) {

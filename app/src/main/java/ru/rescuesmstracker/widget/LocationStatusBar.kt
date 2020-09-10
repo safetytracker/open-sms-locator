@@ -19,24 +19,23 @@
 
 package ru.rescuesmstracker.widget
 
-import android.annotation.TargetApi
 import android.content.Context
 import android.graphics.Color
 import android.graphics.PorterDuff
-import android.os.Build
 import android.support.annotation.ColorInt
 import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.AppCompatTextView
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
-import android.widget.TextView
+import ru.rescuesmstracker.extensions.drawable
 import ru.rst.rescuesmstracker.R
 
-class LocationStatusBar : TextView {
+class LocationStatusBar : AppCompatTextView {
     enum class Status(@DrawableRes val iconRes: Int,
                       @ColorRes val tintColorRes: Int,
                       @StringRes val textRes: Int,
@@ -55,17 +54,12 @@ class LocationStatusBar : TextView {
                 val tintColor = ContextCompat.getColor(context, value.tintColorRes)
                 setIcon(value.iconRes, tintColor)
                 setTextColor(tintColor)
-                if (value.backgroundDrawable == 0) {
-                    setBackgroundDrawable(null)
-                } else {
-                    setBackgroundDrawable(ContextCompat
-                            .getDrawable(context, value.backgroundDrawable))
-                }
+                setBackgroundResource(value.backgroundDrawable)
                 if (value.textRes == 0) {
                     text = ""
                 } else {
                     if (value == Status.ACCURACY_KNOWN) {
-                        text = context.getString(value.textRes, formatedAccuracy())
+                        text = context.getString(value.textRes, formattedAccuracy())
                     } else {
                         setText(value.textRes)
                     }
@@ -73,11 +67,12 @@ class LocationStatusBar : TextView {
                 field = value
             }
         }
+
     var accuracy: Float = 0f
         set(value) {
             if (field != value) {
                 field = value
-                text = context.getString(Status.ACCURACY_KNOWN.textRes, formatedAccuracy())
+                text = context.getString(Status.ACCURACY_KNOWN.textRes, formattedAccuracy())
             }
         }
 
@@ -90,11 +85,6 @@ class LocationStatusBar : TextView {
     }
 
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        init()
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
         init()
     }
 
@@ -127,10 +117,10 @@ class LocationStatusBar : TextView {
         }
     }
 
-    private fun formatedAccuracy(): String = String.format("%.2f", accuracy)
+    private fun formattedAccuracy(): String = String.format("%.2f", accuracy)
 
     private fun setIcon(@DrawableRes iconRes: Int, @ColorInt color: Int) {
-        val icon = ContextCompat.getDrawable(context, iconRes)
+        val icon = context.drawable(iconRes).mutate()
         icon.setColorFilter(color, PorterDuff.Mode.SRC_IN)
         setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
     }

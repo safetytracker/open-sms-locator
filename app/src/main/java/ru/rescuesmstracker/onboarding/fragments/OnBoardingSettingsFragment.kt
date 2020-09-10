@@ -31,9 +31,9 @@ class OnBoardingSettingsFragment : BaseOnBoardingFragment() {
 
     private lateinit var mainSettingsController: MainSettingsController
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainSettingsController = MainSettingsController(activity, pref_interval, pref_max_sms_count, pref_coords_format)
+        mainSettingsController = MainSettingsController(requireActivity(), pref_interval, pref_max_sms_count, pref_coords_format)
         mainSettingsController.initViews()
     }
 }

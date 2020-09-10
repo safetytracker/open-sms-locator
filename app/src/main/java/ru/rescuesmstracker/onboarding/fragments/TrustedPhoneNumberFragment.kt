@@ -37,6 +37,7 @@ import ru.rescuesmstracker.onboarding.FormatUtils
 import ru.rescuesmstracker.utils.TextWatcherAdapter
 import ru.rescuesmstracker.widget.ContactView
 import ru.rst.rescuesmstracker.R
+import java.lang.IllegalArgumentException
 
 class TrustedPhoneNumberFragment : BaseOnBoardingFragment() {
 
@@ -86,7 +87,7 @@ class TrustedPhoneNumberFragment : BaseOnBoardingFragment() {
             field = value
         }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         go_further_button.setOnClickListener {
             onBoardingController?.onContactSelected(contact)
@@ -100,15 +101,15 @@ class TrustedPhoneNumberFragment : BaseOnBoardingFragment() {
         }
 
         if (savedInstanceState != null) {
-            contact = savedInstanceState.getParcelable("contact")
+            contact = savedInstanceState.getParcelable("contact") ?: throw IllegalArgumentException("No contact")
         } else {
             mode = Mode.DIRECT_INPUT
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState?.putParcelable("contact", contact)
+        outState.putParcelable("contact", contact)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

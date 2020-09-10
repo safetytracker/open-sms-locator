@@ -34,13 +34,13 @@ abstract class BaseOnBoardingFragment : Fragment() {
 
     open var onBoardingController: OnBoardingController? = null
 
-    final override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val root = inflater!!.inflate(R.layout.f_base_onboarding, container, false)
-        inflater.inflate(getLayoutRes(), root.findViewById<FrameLayout>(R.id.onboarding_container) as FrameLayout, true)
+    final override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val root = inflater.inflate(R.layout.f_base_onboarding, container, false)
+        inflater.inflate(getLayoutRes(), root.findViewById<FrameLayout>(R.id.onboarding_container), true)
         return root
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         go_further_button.text = getString(R.string.code_word_further)
         go_further_button.setOnClickListener { onBoardingController?.goToNextScreen() }

@@ -70,32 +70,32 @@ class PermissionsFragment : BaseOnBoardingFragment() {
 
     private var state: State = State.IDLE
         set(value) {
-            text_title.setTextColor(ContextCompat.getColor(activity, value.titleTextColorRes))
+            text_title.setTextColor(ContextCompat.getColor(requireActivity(), value.titleTextColorRes))
             text_title.setText(value.titleRes)
             go_further_button.isActivated = value.isButtonActivated
-            img_splash.setImageDrawable(ContextCompat.getDrawable(activity, value.splashDrawableRes))
+            img_splash.setImageDrawable(ContextCompat.getDrawable(requireActivity(), value.splashDrawableRes))
             field = value
         }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         go_further_button.setOnClickListener {
-            requestPermissions(PERMISSIONS.filter { !isPermissionGranted(activity, it) }.toTypedArray(),
+            requestPermissions(PERMISSIONS.filter { !isPermissionGranted(requireActivity(), it) }.toTypedArray(),
                     Constants.REQUEST_PERMISSIONS_REQUEST_CODE)
         }
 
-        state = if (savedInstanceState == null) State.IDLE else State.valueOf(savedInstanceState.getString("state"))
+        state = if (savedInstanceState == null) State.IDLE else State.valueOf(savedInstanceState.getString("state")!!)
 
-        if (!hasPermissionsToRequest(activity)) {
+        if (!hasPermissionsToRequest(requireActivity())) {
             onBoardingController?.goToNextScreen()
             permissionsListener?.onAllPermissionsGranted()
         }
         go_further_button.text = getString(R.string.permissions_permit)
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState?.putString("state", state.name)
+        outState.putString("state", state.name)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
