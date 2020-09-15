@@ -30,7 +30,7 @@ object AppUpdateManager {
         fun onSame()
     }
 
-    private val versionCodeKey = "ru.rescuesmstracker.utils.AppUpdateManager.versionCodeKey"
+    private const val versionCodeKey = "ru.rescuesmstracker.utils.AppUpdateManager.versionCodeKey"
 
     fun check(context: Context, listener: AppVersionListener?) {
         val prefs = obtainPrefs(context)

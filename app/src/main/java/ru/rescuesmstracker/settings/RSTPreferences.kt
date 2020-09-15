@@ -24,6 +24,8 @@ import android.content.SharedPreferences
 import android.location.Location
 import ru.rescuesmstracker.RSTSmsManager
 import ru.rescuesmstracker.WhoCanRequestLocation
+import ru.rescuesmstracker.extensions.getStringOrDefault
+import ru.rescuesmstracker.extensions.getStringOrEmpty
 import ru.rst.rescuesmstracker.R
 import java.util.concurrent.TimeUnit
 
@@ -187,7 +189,7 @@ object RSTPreferences {
         obtainPrefs(context).edit().putString("code_word", word).apply()
     }
 
-    fun getCodeWord(context: Context): String = obtainPrefs(context).getString("code_word", "")
+    fun getCodeWord(context: Context): String = obtainPrefs(context).getStringOrEmpty("code_word")
 
     fun setSMSSendInterval(context: Context, intervalMillis: Long) {
         obtainPrefs(context).edit().putLong("sms_send_interval", intervalMillis).apply()
@@ -205,7 +207,12 @@ object RSTPreferences {
 
     fun getCoordsFormat(context: Context): CoordsFormat {
         return try {
-            CoordsFormat.valueOf(obtainPrefs(context).getString("coords_format", COORDS_FORMAT_DEFAULT_VALUE.name))
+            CoordsFormat.valueOf(
+                    obtainPrefs(context).getStringOrDefault(
+                            key = "coords_format",
+                            default = COORDS_FORMAT_DEFAULT_VALUE.name
+                    )
+            )
         } catch (e: Exception) {
             obtainPrefs(context).edit().putString("coords_format", COORDS_FORMAT_DEFAULT_VALUE.name).apply()
             COORDS_FORMAT_DEFAULT_VALUE
@@ -243,9 +250,11 @@ object RSTPreferences {
         obtainPrefs(context).edit().putString("who_can_request_location", whoCanRequestLocation.name).apply()
     }
 
-    fun whoCanReqeustLocation(context: Context): WhoCanRequestLocation {
-        val name = obtainPrefs(context).getString("who_can_request_location",
-                WhoCanRequestLocation.BY_CODE_WORD.name)
+    fun whoCanRequestLocation(context: Context): WhoCanRequestLocation {
+        val name = obtainPrefs(context).getStringOrDefault(
+                key = "who_can_request_location",
+                default = WhoCanRequestLocation.BY_CODE_WORD.name
+        )
         return try {
             WhoCanRequestLocation.valueOf(name)
         } catch (th: Throwable) {

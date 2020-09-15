@@ -38,8 +38,8 @@ import ru.rescuesmstracker.timer.model.ScheduledSmsModel
 class SmsActionSendReceiver : BroadcastReceiver() {
 
     companion object {
-        val actionSendSms = "ru.rescuesmstracker.timer.SmsActionSendReceiver.actionSendSms"
-        val smsIdsKey = "ru.rescuesmstracker.timer.SmsActionSendReceiver.smsIdsKey"
+        const val actionSendSms = "ru.rescuesmstracker.timer.SmsActionSendReceiver.actionSendSms"
+        const val smsIdsKey = "ru.rescuesmstracker.timer.SmsActionSendReceiver.smsIdsKey"
     }
 
     override fun onReceive(context: Context, intent: Intent?) {

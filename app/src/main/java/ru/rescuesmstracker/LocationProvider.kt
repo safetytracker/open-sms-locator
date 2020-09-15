@@ -89,8 +89,6 @@ object LocationProvider {
         val packageManager = context.packageManager
         if (intent.resolveActivity(packageManager) != null) {
             context.startActivity(intent)
-        } else {
-            // system can't handle request location intent. Do nothing in this case
         }
     }
 

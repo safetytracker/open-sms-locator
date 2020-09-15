@@ -20,11 +20,11 @@
 package ru.rescuesmstracker.widget
 
 import android.content.Context
+import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
-import android.widget.ImageView
 import ru.rst.rescuesmstracker.R
 
-class PlayButton : ImageView {
+class PlayButton : AppCompatImageView {
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)

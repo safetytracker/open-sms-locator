@@ -38,7 +38,7 @@ import java.util.*
 
 object ScheduledSmsModel : BaseSmsModel() {
 
-    val logTag = "ScheduledSmsModel"
+    const val logTag = "ScheduledSmsModel"
 
     private val realm = Realm.getDefaultInstance()
 

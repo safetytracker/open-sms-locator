@@ -43,50 +43,19 @@ object ForceSmsModel : BaseSmsModel() {
         fun onDestroy()
     }
 
-    private val totalSmsIdsListKey = "ru.rescuesmstracker.timer.model.ForceSmsModel.totalSmsIdsListKey"
+    private const val totalSmsIdsListKey = "ru.rescuesmstracker.timer.model.ForceSmsModel.totalSmsIdsListKey"
     private val tasks: MutableMap<String, ForceSmsTaskObservingTask> = mutableMapOf()
 
-    fun forceSendLocation(context: Context, smsType: Sms.Type, contacts: List<Contact>, listener: SmsListener?)
-            : Task {
-        val task = ForceSendSmsExecutableTask(listener).execute(context, smsType, contacts)
-        tasks.put(task.id, task)
-        return task
-    }
+    fun forceSendLocation(
+            context: Context,
+            smsType: Sms.Type,
+            contacts: List<Contact>,
+            listener: SmsListener?
+    ): Task =
+            ForceSendSmsExecutableTask(listener)
+                    .execute(context, smsType, contacts)
+                    .also { tasks[it.id] = it }
 
-    /**
-     * This method should be used by model consumer to subscribe on pending sms status changes.
-     * It will try to recover te data from persistent storages
-     */
-    fun subscribe(context: Context, taskId: String, listener: SmsListener) {
-        val task = tasks[taskId]
-        if (task == null) {
-            val totalSmsIds = getTotalSmsIdsList(context)
-            if (totalSmsIds.isEmpty()) {
-                // no active task with such id and no sms. All sms have been sent
-                listener.onAllSmsSent()
-            } else {
-                val totalSmsIdsList = totalSmsIds.toMutableList()
-                listener.onStatusChanged(Sms.Status.SENDING, totalSmsIdsList)
-                val totalSms = Realm.getDefaultInstance().where(Sms::class.java)
-                        .`in`("id", totalSmsIds.toTypedArray())
-                        .findAll()
-                val pendingSmsList = totalSms
-                        .filter { it.getStatus() == Sms.Status.SENDING }
-                        .map { it.id }
-                        .toMutableList()
-                if (pendingSmsList.isEmpty()) {
-                    // if there is no pending sms we just need to notify listener and cleanup prefs
-                    persistTotalSmsIdsList(context, null)
-                    listener.onAllSmsSent()
-                } else {
-                    // we have some pending sms. So just init observing task and wait for notifyTask() method call
-                    tasks.put(taskId, ForceSmsTaskObservingTask(listener, totalSmsIdsList, pendingSmsList))
-                }
-            }
-        } else {
-            task.listener = listener
-        }
-    }
 
     /**
      * Method is used by [ru.rescuesmstracker.timer.SmsDeliveredReceiver] to notify that another sms
@@ -115,9 +84,6 @@ object ForceSmsModel : BaseSmsModel() {
                     .apply()
         }
     }
-
-    private fun getTotalSmsIdsList(context: Context): Collection<String>
-            = prefs(context).getStringSet(totalSmsIdsListKey, emptySet())
 
     private fun prefs(context: Context): SharedPreferences = context
             .getSharedPreferences("force_sms_model", Context.MODE_PRIVATE)

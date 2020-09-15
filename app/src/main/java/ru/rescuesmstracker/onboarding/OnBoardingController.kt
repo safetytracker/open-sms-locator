@@ -28,6 +28,7 @@ import ru.rescuesmstracker.settings.RSTPreferences
 import ru.rescuesmstracker.RSTSmsManager
 import ru.rescuesmstracker.contacts.ContactsController
 import ru.rescuesmstracker.data.Contact
+import ru.rescuesmstracker.extensions.getStringOrDefault
 
 open class OnBoardingController(val view: IOnBoardingView, val context: Context) {
 
@@ -51,7 +52,10 @@ open class OnBoardingController(val view: IOnBoardingView, val context: Context)
             currentScreen = OnBoardingScreen.SETTINGS
             view.finishView()
         } else {
-            currentScreen = OnBoardingScreen.valueOf(prefs.getString("currentScreen", OnBoardingScreen.WELCOME.name))
+            currentScreen = OnBoardingScreen.valueOf(prefs.getStringOrDefault(
+                    key = "currentScreen",
+                    default = OnBoardingScreen.WELCOME.name)
+            )
             if (view.getCurrentScreen() != currentScreen) {
                 view.showScreen(currentScreen)
             }
@@ -64,8 +68,7 @@ open class OnBoardingController(val view: IOnBoardingView, val context: Context)
 
     fun goToNextScreen() {
         val nextScreenOrdinal: Int = currentScreen.ordinal + 1
-        val possibleScreens: Array<OnBoardingScreen>
-                = OnBoardingScreen.values()
+        val possibleScreens: Array<OnBoardingScreen> = OnBoardingScreen.values()
         if (nextScreenOrdinal < possibleScreens.size) {
             currentScreen = possibleScreens[nextScreenOrdinal]
             view.showScreen(currentScreen)
@@ -84,7 +87,14 @@ open class OnBoardingController(val view: IOnBoardingView, val context: Context)
     }
 
     fun sendCodeWord(contact: Contact, word: String) {
-        RSTSmsManager.get().sendTextMessage(context, contact.phone, null, word, null, null)
+        RSTSmsManager.get().sendTextMessage(
+                context = context,
+                destinationAddress = contact.phone,
+                scAddress = null,
+                text = word,
+                sentIntent = null,
+                deliveryIntent = null
+        )
     }
 
     fun getContact(): Contact {

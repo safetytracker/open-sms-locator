@@ -23,9 +23,7 @@ class Constants {
 
     companion object {
         const val PHONE_SELECT_ACTIVITY_REQUEST_CODE = 1310
-        const val PHONE_SELECT_ACTIVITY_VOICE_REQUEST_CODE = 1311
         const val REQUEST_PERMISSIONS_REQUEST_CODE = 1312
-
         const val ACTIVITY_PERMISSIONS_REQUEST_CODE = 1313
     }
 }

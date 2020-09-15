@@ -37,9 +37,9 @@ import ru.rst.rescuesmstracker.R
  */
 class SmsDeliveredReceiver : BroadcastReceiver() {
     companion object {
-        val actionDeliverySms = "ru.rescuesmstracker.timer.SmsDeliveredReceiver.actionDeliverySms"
-        val smsIdKey = "ru.rescuesmstracker.timer.SmsDeliveredReceiver.smsIdKey"
-        val taskIdKey = "ru.rescuesmstracker.timer.SmsDeliveredReceiver.taskIdKey"
+        const val actionDeliverySms = "ru.rescuesmstracker.timer.SmsDeliveredReceiver.actionDeliverySms"
+        const val smsIdKey = "ru.rescuesmstracker.timer.SmsDeliveredReceiver.smsIdKey"
+        const val taskIdKey = "ru.rescuesmstracker.timer.SmsDeliveredReceiver.taskIdKey"
     }
 
     override fun onReceive(context: Context, intent: Intent?) {

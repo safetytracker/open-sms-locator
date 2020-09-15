@@ -119,12 +119,12 @@ class ActivitySettings : BaseRSTActivity() {
                     .show(supportFragmentManager, "")
         }
 
-        prefWhoCanRequestLocation.setValue(getString(RSTPreferences.whoCanReqeustLocation(this).textRes))
+        prefWhoCanRequestLocation.setValue(getString(RSTPreferences.whoCanRequestLocation(this).textRes))
         val whoCanRequestLocationDialogMode = RadioButtonsDialogMode<WhoCanRequestLocation>()
         whoCanRequestLocationDialogMode.addButtons(WhoCanRequestLocation.values())
         whoCanRequestLocationDialogMode.textProvider = { value -> getString(value.textRes) }
         prefWhoCanRequestLocation.setOnClickListener {
-            whoCanRequestLocationDialogMode.setCheckedId(WhoCanRequestLocation.values().indexOf(RSTPreferences.whoCanReqeustLocation(this)))
+            whoCanRequestLocationDialogMode.setCheckedId(WhoCanRequestLocation.values().indexOf(RSTPreferences.whoCanRequestLocation(this)))
             val dialog = RSTAlertDialog()
             dialog.dialogMode = whoCanRequestLocationDialogMode
             dialog.onOkListener = View.OnClickListener {

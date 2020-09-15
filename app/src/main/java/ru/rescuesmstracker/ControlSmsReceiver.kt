@@ -43,7 +43,7 @@ class ControlSmsReceiver : BroadcastReceiver() {
         }
         intent?.action?.let { action ->
             if (actionSmsReceived.compareTo(action, true) == 0) {
-                val whoCanRequestLocation = RSTPreferences.whoCanReqeustLocation(context)
+                val whoCanRequestLocation = RSTPreferences.whoCanRequestLocation(context)
                 val messages = getMessagesFromIntent(intent)
                 Log.i(logTag, "Received sms messages: " + messages.map { message ->
                     "[adr:${message?.originatingAddress}, msg:${message?.messageBody}]"
