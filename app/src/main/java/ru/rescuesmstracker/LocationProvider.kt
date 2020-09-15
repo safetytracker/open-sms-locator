@@ -40,6 +40,9 @@ object LocationProvider {
         fun onFailedToGetLocation()
     }
 
+    private val locationStrategy: MostSuitableLocationStrategy =
+            MostSuitableLocationStrategy.MostRecentLocationStrategy
+
     private val timeoutMillis = TimeUnit.SECONDS.toMillis(30)
     private const val logTag = "LocationProvider"
 
@@ -103,24 +106,6 @@ object LocationProvider {
         }
     }
 
-    private fun getMostAccurateLocation(lhs: Location, rhs: Location?): Location {
-        return if (rhs == null) {
-            lhs
-        } else {
-            if (lhs.hasAccuracy() && rhs.hasAccuracy()) {
-                if (lhs.accuracy < rhs.accuracy) {
-                    lhs
-                } else {
-                    rhs
-                }
-            } else if (!lhs.hasAccuracy()) {
-                rhs
-            } else {
-                lhs
-            }
-        }
-    }
-
     private fun getBestLastKnownLocation(locationManager: LocationManager): Location? = try {
         val providers = locationManager.allProviders
         if (providers.isEmpty()) {
@@ -130,7 +115,7 @@ object LocationProvider {
             providers.forEach {
                 val lastKnown = locationManager.getLastKnownLocation(it)
                 if (lastKnown != null) {
-                    resultLocation = getMostAccurateLocation(lastKnown, resultLocation)
+                    resultLocation = locationStrategy.getMostSuitableLocation(lastKnown, resultLocation)
                 }
             }
             resultLocation
@@ -185,7 +170,7 @@ object LocationProvider {
             Log.d(logTag, "Expired=$isExpired. Got location: $location")
             if (!isExpired) {
                 if (location != null) {
-                    currentBestLocation = getMostAccurateLocation(location, currentBestLocation)
+                    currentBestLocation = locationStrategy.getMostSuitableLocation(location, currentBestLocation)
                 }
 
                 if (receivedLocationsCount == resultCount && currentBestLocation != null) {
