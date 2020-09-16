@@ -43,7 +43,7 @@ object LocationProvider {
     private val locationStrategy: MostSuitableLocationStrategy =
             MostSuitableLocationStrategy.MostRecentLocationStrategy
 
-    private val timeoutMillis = TimeUnit.SECONDS.toMillis(30)
+    private val timeoutMillis = TimeUnit.MINUTES.toMillis(5)
     private const val logTag = "LocationProvider"
 
     fun currentLocation(context: Context, externalLocationListener: LocationCallback) {
