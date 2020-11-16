@@ -17,54 +17,46 @@ class CurrentLocationRetriever(
         private val callback: Callback
 ) {
 
+    private val listener = AccumulationLocationListener()
+    private val locationManager = context.getLocationManager()
+
     fun start() {
         if (!context.hasLocationPermissions()) {
             callback.onRetrieveLocationFailed()
             return
         }
-        val locationManager = context.getLocationManager()
         val providers = locationManager.getProviders(true)
         if (providers.isEmpty()) {
             callback.onRetrieveLocationFailed()
         } else {
-            val listener = AccumulationLocationListener()
             providers.forEach { locationManager.requestLocationUpdatesSafe(it, listener) }
-            startWaiting(listener)
+            startSlicing(listener)
         }
     }
 
-    private fun startWaiting(accumulationLocationListener: AccumulationLocationListener) {
+    private fun startSlicing(accumulationLocationListener: AccumulationLocationListener) {
         val mainHandler = Handler(Looper.getMainLooper())
         val startTime = RSTSystem.currentTimeMillis()
         val sliceRunnable = object : Runnable {
             override fun run() {
-                val locations = accumulationLocationListener.getAccumulated()
-                val mostAccurate = getMostAccurateLocation(locations)
+                val mostAccurate = accumulationLocationListener.getMostAccurateLocation()
                 if (mostAccurate != null && mostAccurate.accuracy < REQUIRED_ACCURACY_METERS) {
                     val elapsedTime = RSTSystem.currentTimeMillis() - startTime
                     callback.onMostAccurateLocationRetrieved(mostAccurate, elapsedTime)
+                    stopSlicing()
                 } else if (RSTSystem.currentTimeMillis() - startTime <= MAX_WAITING_TIME_MS) {
                     mainHandler.postDelayed(this, SLICE_PERIOD_MS)
                 } else {
                     callback.onRetrieveLocationExpired(mostAccurate)
+                    stopSlicing()
                 }
             }
         }
         mainHandler.postDelayed(sliceRunnable, SLICE_PERIOD_MS)
     }
 
-    private fun getMostAccurateLocation(locations: List<Location>): Location? {
-        var bestAccuracy: Float = Float.MAX_VALUE
-        var bestLocation: Location? = null
-        locations.asSequence()
-                .filter { it.hasAccuracy() }
-                .forEach {
-                    if (it.accuracy < bestAccuracy) {
-                        bestAccuracy = it.accuracy
-                        bestLocation = it
-                    }
-                }
-        return bestLocation
+    private fun stopSlicing() {
+        locationManager.removeUpdates(listener)
     }
 
     private fun Context.hasLocationPermissions(): Boolean =

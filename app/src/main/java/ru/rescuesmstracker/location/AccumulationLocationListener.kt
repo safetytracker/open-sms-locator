@@ -6,11 +6,14 @@ import android.os.Bundle
 
 class AccumulationLocationListener : LocationListener {
 
-    private val accumulatedLocations = arrayListOf<Location>()
+    private var mostAccurateLocation: Location? = null
 
+    @Synchronized
     override fun onLocationChanged(location: Location) {
-        synchronized(accumulatedLocations) {
-            accumulatedLocations += location
+        if (location.hasAccuracy()) {
+            if (location.isMoreAccurateThan(mostAccurateLocation)) {
+                mostAccurateLocation = location
+            }
         }
     }
 
@@ -26,8 +29,10 @@ class AccumulationLocationListener : LocationListener {
         // do nothing
     }
 
-    fun getAccumulated(): List<Location> = synchronized(accumulatedLocations) {
-        ArrayList(accumulatedLocations)
-    }
+    @Synchronized
+    fun getMostAccurateLocation(): Location? = mostAccurateLocation
+
+    private fun Location.isMoreAccurateThan(other: Location?): Boolean =
+            other == null || accuracy < other.accuracy
 
 }
