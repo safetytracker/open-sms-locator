@@ -26,8 +26,9 @@ import android.content.Intent
 import android.location.Location
 import android.util.Log
 import io.realm.Realm
-import ru.rescuesmstracker.LocationProvider
 import ru.rescuesmstracker.data.Sms
+import ru.rescuesmstracker.location.LocationCallback
+import ru.rescuesmstracker.location.LocationProvider
 import ru.rescuesmstracker.onboarding.FormatUtils
 import ru.rescuesmstracker.timer.model.BaseSmsModel
 import ru.rescuesmstracker.timer.model.ScheduledSmsModel
@@ -54,7 +55,7 @@ class SmsActionSendReceiver : BroadcastReceiver() {
             if (smsList.size == 0) {
                 Log.e(ScheduledSmsModel.logTag, "Failed to get sms for deliveredSmsId=$smsId")
             } else {
-                LocationProvider.currentLocation(context, object : LocationProvider.LocationCallback {
+                LocationProvider.currentLocation(context, object : LocationCallback {
                     override fun onReceivedLocation(location: Location, isLastKnown: Boolean) {
                         smsList.forEach { sms ->
                             realm.executeTransaction {

@@ -27,9 +27,9 @@ import kotlinx.android.synthetic.main.content_disabled.*
 import kotlinx.android.synthetic.main.content_enabled.*
 import kotlinx.android.synthetic.main.content_enabled.locationStatusBar
 import kotlinx.android.synthetic.main.content_enabled.rstTimer
-import ru.rescuesmstracker.LocationProvider
 import ru.rescuesmstracker.data.Contact
 import ru.rescuesmstracker.data.Sms
+import ru.rescuesmstracker.location.LocationProvider
 import ru.rescuesmstracker.settings.ActivitySettings
 import ru.rescuesmstracker.widget.BaseRSTActivity
 import ru.rescuesmstracker.widget.LocationStatusBar
