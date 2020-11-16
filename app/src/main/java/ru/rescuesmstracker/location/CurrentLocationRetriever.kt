@@ -38,7 +38,7 @@ class CurrentLocationRetriever(
         val startTime = RSTSystem.currentTimeMillis()
         val sliceRunnable = object : Runnable {
             override fun run() {
-                val locations = accumulationLocationListener.flush()
+                val locations = accumulationLocationListener.getAccumulated()
                 val mostAccurate = getMostAccurateLocation(locations)
                 if (mostAccurate != null && mostAccurate.accuracy < REQUIRED_ACCURACY_METERS) {
                     val elapsedTime = RSTSystem.currentTimeMillis() - startTime
@@ -46,7 +46,7 @@ class CurrentLocationRetriever(
                 } else if (RSTSystem.currentTimeMillis() - startTime <= MAX_WAITING_TIME_MS) {
                     mainHandler.postDelayed(this, SLICE_PERIOD_MS)
                 } else {
-                    callback.onRetrieveLocationExpired()
+                    callback.onRetrieveLocationExpired(mostAccurate)
                 }
             }
         }
@@ -85,7 +85,7 @@ class CurrentLocationRetriever(
     interface Callback {
         fun onMostAccurateLocationRetrieved(location: Location, elapsedTime: Long)
         fun onRetrieveLocationFailed()
-        fun onRetrieveLocationExpired()
+        fun onRetrieveLocationExpired(bestRetrievedLocation: Location?)
     }
 }
 

@@ -26,13 +26,8 @@ class AccumulationLocationListener : LocationListener {
         // do nothing
     }
 
-    fun flush(): List<Location> {
-        val result: List<Location>
-        synchronized(accumulatedLocations) {
-            result = ArrayList(accumulatedLocations)
-            accumulatedLocations.clear()
-        }
-        return result
+    fun getAccumulated(): List<Location> = synchronized(accumulatedLocations) {
+        ArrayList(accumulatedLocations)
     }
 
 }

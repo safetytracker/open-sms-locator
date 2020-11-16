@@ -13,31 +13,10 @@ import ru.rescuesmstracker.settings.RSTPreferences
 object LocationProvider {
 
     fun currentLocation(context: Context, locationCallback: LocationCallback) {
-        val currentLocationCallback = object : CurrentLocationRetriever.Callback {
-
-            override fun onMostAccurateLocationRetrieved(location: Location, elapsedTime: Long) {
-                RSTPreferences.putLastSmsAccuracy(context, location.accuracy)
-                locationCallback.onReceivedLocation(location, false)
-                // we want to track how much time we need to get the location
-                Analytics.track(LocationFoundEvent(elapsedTime, location.provider))
-            }
-
-            override fun onRetrieveLocationFailed() {
-                locationCallback.onFailedToGetLocation()
-            }
-
-            override fun onRetrieveLocationExpired() {
-                val location = getBestLastKnownLocation(context.getLocationManager())
-                if (location == null) {
-                    locationCallback.onFailedToGetLocation()
-                } else {
-                    RSTPreferences.putLastSmsAccuracy(context, location.accuracy)
-                    locationCallback.onReceivedLocation(location, true)
-                }
-            }
-
-        }
-        CurrentLocationRetriever(context = context, callback = currentLocationCallback).start()
+        CurrentLocationRetriever(
+                context = context,
+                callback = CallbackAdapter(context, locationCallback)
+        ).start()
     }
 
     fun requestLocationEnabling(context: Context) {
@@ -93,6 +72,41 @@ object LocationProvider {
                 lhs
             }
         }
+    }
+
+    private class CallbackAdapter(
+            private val context: Context,
+            private val locationCallback: LocationCallback
+    ) : CurrentLocationRetriever.Callback {
+
+        override fun onMostAccurateLocationRetrieved(location: Location, elapsedTime: Long) {
+            onReceivedLocation(location = location, isLastKnown = false)
+            // we want to track how much time we need to get the location
+            Analytics.track(LocationFoundEvent(elapsedTime, location.provider))
+        }
+
+        override fun onRetrieveLocationFailed() {
+            locationCallback.onFailedToGetLocation()
+        }
+
+        override fun onRetrieveLocationExpired(bestRetrievedLocation: Location?) {
+            if (bestRetrievedLocation != null) {
+                onReceivedLocation(location = bestRetrievedLocation, isLastKnown = false)
+            } else {
+                val location = getBestLastKnownLocation(context.getLocationManager())
+                if (location == null) {
+                    locationCallback.onFailedToGetLocation()
+                } else {
+                    onReceivedLocation(location = location, isLastKnown = true)
+                }
+            }
+        }
+
+        private fun onReceivedLocation(location: Location, isLastKnown: Boolean) {
+            RSTPreferences.putLastSmsAccuracy(context, location.accuracy)
+            locationCallback.onReceivedLocation(location, isLastKnown)
+        }
+
     }
 
 }
