@@ -186,10 +186,12 @@ object RSTPreferences {
     }
 
     fun putCodeWord(context: Context, word: String) {
-        obtainPrefs(context).edit().putString("code_word", word).apply()
+        obtainPrefs(context).edit().putString("code_word", word.trim()).apply()
     }
 
-    fun getCodeWord(context: Context): String = obtainPrefs(context).getStringOrEmpty("code_word")
+    fun getCodeWord(context: Context): String = obtainPrefs(context)
+            .getStringOrEmpty("code_word")
+            .trim()
 
     fun setSMSSendInterval(context: Context, intervalMillis: Long) {
         obtainPrefs(context).edit().putLong("sms_send_interval", intervalMillis).apply()
