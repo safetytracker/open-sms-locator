@@ -44,13 +44,17 @@ open class ByCodeWord : Validator() {
             if (currentCodeWord.isEmpty()) {
                 false
             } else {
-                it.messageBody == currentCodeWord
+                currentCodeWord.equals(it.messageBody.trim(), ignoreCase = true)
             }
         }.map { smsMessage ->
             trustedContacts.find {
-                FormatUtils(context).areEqualPhoneNumbers(
-                        it.phone, smsMessage.originatingAddress)
-            } ?: Contact("code_word_contact", smsMessage.originatingAddress, "", false)
+                FormatUtils(context).areEqualPhoneNumbers(it.phone, smsMessage.originatingAddress)
+            } ?: Contact(
+                    name = "code_word_contact",
+                    phone = smsMessage.originatingAddress.orEmpty(),
+                    photoUriString = "",
+                    isFromPhoneContacts = false
+            )
         }
     }
 }

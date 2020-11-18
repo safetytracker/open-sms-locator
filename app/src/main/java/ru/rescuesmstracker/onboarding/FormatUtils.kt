@@ -97,5 +97,5 @@ class FormatUtils(val context: Context) {
         return builder
     }
 
-    fun areEqualPhoneNumbers(lhs: String, rhs: String): Boolean = PhoneNumberUtils.compare(lhs, rhs)
+    fun areEqualPhoneNumbers(lhs: String, rhs: String?): Boolean = PhoneNumberUtils.compare(lhs, rhs)
 }
