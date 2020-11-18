@@ -20,11 +20,11 @@
 package ru.rescuesmstracker.timer
 
 import android.content.Context
-import ru.rescuesmstracker.LocationProvider
 import ru.rescuesmstracker.RSTForegroundService
 import ru.rescuesmstracker.RSTSystem
 import ru.rescuesmstracker.contacts.ContactsController
 import ru.rescuesmstracker.data.Sms
+import ru.rescuesmstracker.location.LocationProvider
 import ru.rescuesmstracker.settings.RSTPreferences
 import ru.rescuesmstracker.timer.model.ForceSmsModel
 import ru.rescuesmstracker.timer.model.ScheduledSmsModel

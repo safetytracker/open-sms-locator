@@ -22,6 +22,7 @@ package ru.rescuesmstracker.extensions
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import android.location.LocationManager
 import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
 import android.support.v4.content.ContextCompat
@@ -32,3 +33,6 @@ fun Context.color(@ColorRes id: Int): Int = ContextCompat.getColor(this, id)
 
 fun Context.isPermissionGranted(permission: String) =
         ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
+
+fun Context.getLocationManager(): LocationManager =
+        getSystemService(Context.LOCATION_SERVICE) as LocationManager

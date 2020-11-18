@@ -23,10 +23,11 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.location.Location
 import io.realm.Realm
-import ru.rescuesmstracker.LocationProvider
 import ru.rescuesmstracker.RSTSystem
 import ru.rescuesmstracker.data.Contact
 import ru.rescuesmstracker.data.Sms
+import ru.rescuesmstracker.location.LocationCallback
+import ru.rescuesmstracker.location.LocationProvider
 import ru.rescuesmstracker.onboarding.FormatUtils
 import java.util.*
 
@@ -112,7 +113,7 @@ object ForceSmsModel : BaseSmsModel() {
 
         fun execute(context: Context, smsType: Sms.Type, contacts: List<Contact>): ForceSendSmsExecutableTask {
             listener?.onStatusChanged(Sms.Status.SENDING, totalSmsIdsList)
-            LocationProvider.currentLocation(context, object : LocationProvider.LocationCallback {
+            LocationProvider.currentLocation(context, object : LocationCallback {
                 override fun onReceivedLocation(location: Location, isLastKnown: Boolean) {
                     contacts.forEach { contact ->
                         val realm = Realm.getDefaultInstance()
