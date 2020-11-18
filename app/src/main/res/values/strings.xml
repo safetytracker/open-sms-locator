@@ -2,10 +2,7 @@
     <string name="app_name" translatable="false">Safety Tracker: GPS via SMS</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-    <string name="sms_pattern" translatable="false">%s\n
-%s\n
-acc=%s\n
-    </string>
+    <string name="sms_pattern" translatable="false">%s\n%s\nacc=%s\nbattery=%s\n</string>
 
     <string name="welcome_title">Your lifeline</string>
     <string name="welcome_message">Your trusted persons may request your coordinates if you\'re unable to go online</string>

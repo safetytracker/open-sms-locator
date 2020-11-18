@@ -23,6 +23,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.location.Location
 import io.realm.Realm
+import ru.rescuesmstracker.RSTBatteryManager
 import ru.rescuesmstracker.RSTSystem
 import ru.rescuesmstracker.data.Contact
 import ru.rescuesmstracker.data.Sms
@@ -48,14 +49,14 @@ object ForceSmsModel : BaseSmsModel() {
     private val tasks: MutableMap<String, ForceSmsTaskObservingTask> = mutableMapOf()
 
     fun forceSendLocation(
-            context: Context,
-            smsType: Sms.Type,
-            contacts: List<Contact>,
-            listener: SmsListener?
+        context: Context,
+        smsType: Sms.Type,
+        contacts: List<Contact>,
+        listener: SmsListener?
     ): Task =
-            ForceSendSmsExecutableTask(listener)
-                    .execute(context, smsType, contacts)
-                    .also { tasks[it.id] = it }
+        ForceSendSmsExecutableTask(listener)
+            .execute(context, smsType, contacts)
+            .also { tasks[it.id] = it }
 
 
     /**
@@ -77,17 +78,17 @@ object ForceSmsModel : BaseSmsModel() {
     private fun persistTotalSmsIdsList(context: Context, totalSmsIdsList: Collection<String>?) {
         if (totalSmsIdsList == null || totalSmsIdsList.isEmpty()) {
             prefs(context).edit()
-                    .remove(totalSmsIdsListKey)
-                    .apply()
+                .remove(totalSmsIdsListKey)
+                .apply()
         } else {
             prefs(context).edit()
-                    .putStringSet(totalSmsIdsListKey, totalSmsIdsList.toSet())
-                    .apply()
+                .putStringSet(totalSmsIdsListKey, totalSmsIdsList.toSet())
+                .apply()
         }
     }
 
     private fun prefs(context: Context): SharedPreferences = context
-            .getSharedPreferences("force_sms_model", Context.MODE_PRIVATE)
+        .getSharedPreferences("force_sms_model", Context.MODE_PRIVATE)
 
     private open class ForceSmsTaskObservingTask(var listener: SmsListener?,
                                                  val totalSmsIdsList: MutableList<String>,
@@ -115,12 +116,23 @@ object ForceSmsModel : BaseSmsModel() {
             listener?.onStatusChanged(Sms.Status.SENDING, totalSmsIdsList)
             LocationProvider.currentLocation(context, object : LocationCallback {
                 override fun onReceivedLocation(location: Location, isLastKnown: Boolean) {
+                    val batteryLevel = RSTBatteryManager.getCurrentBatteryLevel(context)
+                    val smsText = FormatUtils(context).formatLocationSms(
+                        location = location,
+                        isLastKnown = isLastKnown,
+                        batteryLevel = batteryLevel
+                    )
                     contacts.forEach { contact ->
                         val realm = Realm.getDefaultInstance()
                         realm.beginTransaction()
-                        val sms = Realm.getDefaultInstance()
-                                .copyToRealm(Sms(contact, RSTSystem.currentTimeMillis(),
-                                        FormatUtils(context).formatLocationSms(location, isLastKnown), smsType))
+                        val sms = Realm.getDefaultInstance().copyToRealm(
+                            Sms(
+                                destinationContact = contact,
+                                scheduledTimestamp = RSTSystem.currentTimeMillis(),
+                                text = smsText,
+                                type = smsType
+                            )
+                        )
                         realm.commitTransaction()
                         totalSmsIdsList.add(sms.id)
                         pendingSmsIdsList.add(sms.id)

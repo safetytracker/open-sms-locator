@@ -55,15 +55,18 @@ class FormatUtils(val context: Context) {
         }
     }
 
-    fun formatLocationSms(location: Location, isLastKnown: Boolean): String {
+    fun formatLocationSms(location: Location, isLastKnown: Boolean, batteryLevel: Int): String {
         val formattedTime = SimpleDateFormat("kk:mm", Locale.getDefault())
                 .format(location.time)
         val timePrefix = if (isLastKnown) "OLD " else ""
 
-        return context.getString(R.string.sms_pattern,
+        return context.getString(
+                R.string.sms_pattern,
                 RSTPreferences.getCoordsFormat(context).format(location),
                 "${timePrefix}T=$formattedTime",
-                String.format("%.0f", location.accuracy))
+                String.format("%.0f", location.accuracy),
+                "$batteryLevel%"
+        )
     }
 
     fun formatTimerMinutes(minutesMillis: Long): String =
