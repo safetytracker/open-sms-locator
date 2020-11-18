@@ -26,6 +26,7 @@ import android.content.Intent
 import android.location.Location
 import android.util.Log
 import io.realm.Realm
+import ru.rescuesmstracker.RSTBatteryManager
 import ru.rescuesmstracker.data.Sms
 import ru.rescuesmstracker.location.LocationCallback
 import ru.rescuesmstracker.location.LocationProvider
@@ -57,10 +58,14 @@ class SmsActionSendReceiver : BroadcastReceiver() {
             } else {
                 LocationProvider.currentLocation(context, object : LocationCallback {
                     override fun onReceivedLocation(location: Location, isLastKnown: Boolean) {
+                        val batteryLevel = RSTBatteryManager.getCurrentBatteryLevel(context)
+                        val smsText = FormatUtils(context).formatLocationSms(
+                            location = location,
+                            isLastKnown = isLastKnown,
+                            batteryLevel = batteryLevel
+                        )
                         smsList.forEach { sms ->
-                            realm.executeTransaction {
-                                sms.text = FormatUtils(context).formatLocationSms(location, isLastKnown)
-                            }
+                            realm.executeTransaction { sms.text = smsText }
                             BaseSmsModel.performLocationSmsSending(context, sms)
                         }
                     }
