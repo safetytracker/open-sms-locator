@@ -11,6 +11,9 @@ if (isRSTPublicRelease) {
     apply from: "loadPrivateData.gradle"
     println("Got props:" + privateProps)
     feedbackEmail = privateProps['rst.feedbackEmail']
+    if (feedbackEmail == null || feedbackEmail.isEmpty()) {
+        throw new GradleException("No feedback e-mail set")
+    }
 } else {
     println("Performing regular build")
     feedbackEmail = "feedback@test.com"
